@@ -15,7 +15,7 @@ tac
 echo -n 'Press ENTER to continue, CTRL-C to bail out... '; read
 
 # See this mailing list post: http://curl.haxx.se/mail/archive-2013-10/0036.html
-if [ $(echo "$OSX_MAJOR_VERSION  < 9" | bc) == 1 ]; then
+if [ $OSX_MAJOR_VERSION  -lt 9 ]; then
    export CURL_CA_BUNDLE=/usr/share/curl/curl-ca-bundle.crt
 fi
 
