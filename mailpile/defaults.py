@@ -1,13 +1,13 @@
 APPVER = "1.0.0rc0"
 ABOUT = """\
-Mailpile.py          a tool                 Copyright 2013-2015, Mailpile ehf
-               for searching and                   <https://www.mailpile.is/>
-           organizing piles of e-mail
+Mailpile.py              a tool             Copyright 2013-2016, Mailpile ehf
+ v%8.0008s         for searching and               <https://www.mailpile.is/>
+               organizing piles of e-mail
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of either the GNU Affero General Public License as published by the
 Free Software Foundation. See the file COPYING.md for details.
-"""
+""" % APPVER
 #############################################################################
 import os
 import sys
@@ -25,12 +25,12 @@ _ = lambda string: string
 DEFAULT_SENDMAIL = '|/usr/sbin/sendmail -i %(rcpt)s'
 CONFIG_PLUGINS = []
 CONFIG_RULES = {
-    'version': [_('Mailpile program version'), str, APPVER],
-    'homedir': [_('Location of Mailpile data'), False, '(unset)'],
+    'version': p(_('Mailpile program version'), str, APPVER),
+    'homedir': p(_('Location of Mailpile data'), False, '(unset)'),
     'timestamp': [_('Configuration timestamp'), int, int(time.time())],
     'master_key': k(_('Master symmetric encryption key'), str, ''),
     'sys': p(_('Technical system settings'), False, {
-        'fd_cache_size':  (_('Max files kept open at once'), int,         500),
+        'fd_cache_size': p(_('Max files kept open at once'), int,         500),
         'history_length': (_('History length (lines, <0=no save)'), int,  100),
         'http_host':     p(_('Listening host for web UI'),
                            'hostname', 'localhost'),
@@ -78,7 +78,7 @@ CONFIG_RULES = {
         'gpg_use_agent':   (_('Use the local GnuPG agent'), bool,       False),
         'gpg_clearsign':  X(_('Inline PGP signatures or attached'),
                             bool, False),
-        'gpg_recipient':  p(_('Encrypt local data to ...'), 'gpgkeyid',    ''),
+        'gpg_recipient':   (_('Encrypt local data to ...'), 'gpgkeyid',    ''),
         'gpg_email_key':   (_('Enable e-mail based public key distribution'),
                             bool, True),
         'openpgp_header': X(_('Advertise GPG preferences in a header?'),

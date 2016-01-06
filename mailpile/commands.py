@@ -2572,6 +2572,8 @@ class Quit(Command):
     def command(self):
         mailpile.util.QUITTING = True
         self._background_save(index=True, config=True, wait=True)
+        if self.session.config.http_worker:
+            self.session.config.http_worker.quit()
         try:
             import signal
             os.kill(mailpile.util.MAIN_PID, signal.SIGINT)
@@ -2634,6 +2636,9 @@ class Help(Command):
             text = [
                 self.result['splash']
             ]
+            if os.getenv('DISPLAY'):
+                # Launching the web browser often prints junk, move past it.
+                text[:0] = ['=' * 77]
 
             if self.result['http_url']:
                 text.append(_('The Web interface address is: %s'
